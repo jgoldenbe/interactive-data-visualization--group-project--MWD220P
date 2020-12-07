@@ -39,7 +39,7 @@ d3.dsv(',','PRECAVG.csv', function(d){
         .style("position", "absolute")
         .style("z-index", "10")
         .style("visibility", "hidden")
-        .html(d.temp);
+        .text(d.temp);
 
     svg.append("g")
         .selectAll("path")
