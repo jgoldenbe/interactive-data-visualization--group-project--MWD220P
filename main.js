@@ -43,6 +43,29 @@ d3.dsv(',','PRECAVG.csv', function(d){
             .endAngle(function(d) { return xscale(d.year) + xscale.bandwidth(); })
                 .padAngle(0.01)
                 .padRadius(innerRadius))
+        .on('mouseover', function (d, i) {
+            d3.select(this).transition()
+                .duration('50')
+                .attr('opacity', '.85')
+                .attr("fill", "green");
+            //Make Tooltip Appear
+            div.style("visibility", "visible");
+            //var eventX = d3.event.pageX;
+            //var eventY = d3.event.pageY;
+            div.html(d.value)
+                //div.text(d);
+                .style("left", (200+ 10) + "px")
+                .style("top", (200 - 15) + "px");
+        })
+        .on('mouseout', function (d, i) {
+            d3.select(this).transition()
+                .duration('50')
+                .attr('opacity', '1')
+                .attr("fill", "#b5f28d");
+            div.transition()
+                .duration('50')
+                .style("opacity", 0);
+        })
 
     svg.append("g")
         .selectAll("g")
