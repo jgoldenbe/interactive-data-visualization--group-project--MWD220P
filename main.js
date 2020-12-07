@@ -9,18 +9,15 @@ d3.dsv(',','PRECAVG.csv', function(d){
                         //Idea: Create a circular barchart, whenever mouse hovers
                         //over the year of interest, pops out more information included temp
                         //and DSI. Different colors can indicate DSI levels.
-    var margin = {top: 20, right: 20, bottom: 20, left: 20},
-        width = 650 - margin.left - margin.right,
-        height = 650 - margin.top - margin.bottom,
+    var margin = {top: 20, right: 0, bottom: 20, left: 20},
+        width = 750 - margin.left - margin.right,
+        height = 750 - margin.top - margin.bottom,
         innerRadius= 80,
         outerRadius = Math.min(width, height) / 1.5;
 
     var svg = d3.select("body")
-
         .append("svg")
-
         .classed("svg", true)
-
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + (margin.bottom + 50))
         .append("g")
@@ -33,14 +30,13 @@ d3.dsv(',','PRECAVG.csv', function(d){
     var yscale  =d3.scaleRadial()
         .domain([0, 15])
         .range([innerRadius, outerRadius]);
-
-    var tooltip = d3.select("body")
-        .append("div")
-        .style("position", "absolute")
-        .style("z-index", "10")
-        .style("visibility", "hidden")
-        .html(data.map(function(d){return d.DSI; }));
-
+    // var tooltip = d3.select("body")
+    //     .append("div")
+    //     .style("position", "absolute")
+    //     .style("z-index", "10")
+    //     .style("visibility", "hidden")
+    //     .html(data.map(function(d){return d.DSI; }));
+    //
     svg.append("g")
         .selectAll("path")
         .data(data)
@@ -102,6 +98,25 @@ d3.dsv(',','PRECAVG.csv', function(d){
                 .style("opacity", 0);
         })
 
+    //Circle for Bar Chart Key
+    svg.append("circle").attr("cx", 70).attr("cy", 350).attr("r", 6).style("fill", "#6B4205")
+    svg.append("circle").attr("cx",70).attr("cy",395).attr("r", 6).style("fill", "#E08805")
+    svg.append("circle").attr("cx", 70).attr("cy", 435).attr("r", 6).style("fill", "#DCA655")
+    svg.append("circle").attr("cx", 70).attr("cy", 475).attr("r", 6).style("fill", "#F6CF95")
+    svg.append("circle").attr("cx", 220).attr("cy", 395).attr("r", 6).style("fill", "#1A604E")
+    svg.append("circle").attr("cx", 220).attr("cy", 350).attr("r", 6).style("fill", "#3FAE92")
+    svg.append("circle").attr("cx", 220).attr("cy", 435).attr("r", 6).style("fill", "#33F3C2")
+    svg.append("circle").attr("cx", 220).attr("cy", 435).attr("r", 6).style("fill", "#33F3C2")
+
+    //Key Labels
+    svg.append("text").attr("x",80).attr("y", 350).text("Extreme Drought").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 80).attr("y", 395).text("Severe Drought").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 80).attr("y", 435).text("Moderate Drought").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 80).attr("y", 475).text("Near Normal").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 230).attr("y", 395).text("Very Moist Soil").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 230).attr("y", 350).text("Extremely Moist").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 230).attr("y", 435).text("Unusual Moist Soil").style("font-size", "15px").attr("alignment-baseline","middle")
+
     svg.append("g")
         .selectAll("g")
         .data(data)
@@ -114,5 +129,4 @@ d3.dsv(',','PRECAVG.csv', function(d){
         .attr("transform", function(d) { return (xscale(d.year) + xscale.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
         .style("font-size", "10px")
         .attr("alignment-baseline", "middle")
-
 });
