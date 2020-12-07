@@ -129,4 +129,11 @@ d3.dsv(',','PRECAVG.csv', function(d){
         .attr("transform", function(d) { return (xscale(d.year) + xscale.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
         .style("font-size", "10px")
         .attr("alignment-baseline", "middle")
+
+    svg.append("text")
+        .attr("x", 120)
+        .attr("y", 330)
+        .style("font-size", "16px")
+        .style("text-decoration", "underline")
+        .text("Drought Severity Index Key");
 });
