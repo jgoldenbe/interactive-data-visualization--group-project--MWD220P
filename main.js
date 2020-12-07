@@ -59,14 +59,20 @@ d3.dsv(',','PRECAVG.csv', function(d){
                 .duration('50')
                 .attr('opacity', '.85')
                 .style("fill", function (d) {
-                    if (parseInt(d.DSI) > -1.9) {
-                        return "green";
-                    } else if (parseInt(d.DSI) > -2.9) {
-                        return "yellow";
-                    } else if (parseInt(d.DSI) > -3.9) {
-                        return "orange";
-                    } else if (parseInt(d.DSI) < -3.9) {
-                        return "red";
+                    if (parseInt(d.DSI) <= -4.00) {
+                        return "#6B4205";
+                    } else if (parseInt(d.DSI) <= -3.00 && parseInt(d.DSI) >= -3.99) {
+                        return "#E08805";
+                    } else if (parseInt(d.DSI) <= -2.00  && parseInt(d.DSI) >= -2.99) {
+                        return "#DCA655";
+                    } else if (parseInt(d.DSI) >= -1.90  && parseInt(d.DSI) <= 1.99) {
+                        return "#F6CF95";
+                    } else if (parseInt(d.DSI) >= 2.00  && parseInt(d.DSI) <= 2.99) {
+                        return "#1A604E";
+                    } else if (parseInt(d.DSI) >= 3.00  && parseInt(d.DSI) <= 3.99) {
+                        return "#3FAE92";
+                    } else if (parseInt(d.DSI) >= 3.99) {
+                        return "#33F3C2";
                     }
                 });
 
