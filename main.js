@@ -46,7 +46,7 @@ d3.dsv(',','PRECAVG.csv', function(d){
         .data(data)
         .enter()
         .append("path")
-        .attr("fill", "#b5f28d")
+        .attr("fill", "#D7CCC8")
         .attr("d", d3.arc()
             .innerRadius(innerRadius)
             .outerRadius(function(d){ return yscale(d['avg']); })
@@ -94,7 +94,7 @@ d3.dsv(',','PRECAVG.csv', function(d){
                 .duration('50')
                 .attr('opacity', '1')
                 .style("fill", function (d) {
-                    return "#b5f28d";
+                    return "#D7CCC8";
                 });
             tooltip.style("visibility", "hidden");
             div.transition()
