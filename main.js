@@ -39,7 +39,8 @@ d3.dsv(',','PRECAVG.csv', function(d){
         .style("position", "absolute")
         .style("z-index", "10")
         .style("visibility", "hidden")
-        .text(d.temp);
+        //Need to figure out why d.DSI and d.temp are not working. It beleives d is not a variable.
+        .text("This text is working like this");
 
     svg.append("g")
         .selectAll("path")
