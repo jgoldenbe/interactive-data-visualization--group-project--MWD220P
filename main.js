@@ -20,7 +20,7 @@ d3.dsv(',','PRECAVG.csv', function(d){
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + (height/2+100)+ ")");
+        .attr("transform", "translate(" + width / 2 + "," + (height/2)+ ")");
 
     var xscale = d3.scaleBand()
         .range([0, (2* Math.PI)])
