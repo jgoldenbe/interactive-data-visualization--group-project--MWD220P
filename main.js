@@ -47,7 +47,18 @@ d3.dsv(',','PRECAVG.csv', function(d){
             d3.select(this).transition()
                 .duration('50')
                 .attr('opacity', '.85')
-                .attr("fill", "green");
+                // .attr("fill", "green")
+                .style("fill", function (d) {
+                    if (parseInt(d.DSI) > -1.9) {
+                        return "green";
+                    } else if (parseInt(d.DSI) > -2.9) {
+                        return "yellow";
+                    } else if (parseInt(d.DSI) > -3.9) {
+                        return "orange";
+                    } else if (parseInt(d.DSI) < -3.9) {
+                        return "red";
+                    }
+                });
             //Make Tooltip Appear
             div.style("visibility", "visible");
             //var eventX = d3.event.pageX;
@@ -61,7 +72,9 @@ d3.dsv(',','PRECAVG.csv', function(d){
             d3.select(this).transition()
                 .duration('50')
                 .attr('opacity', '1')
-                .attr("fill", "#b5f28d");
+                .style("fill", function (d) {
+                    return "#b5f28d";
+                });
             div.transition()
                 .duration('50')
                 .style("opacity", 0);
