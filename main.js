@@ -10,17 +10,21 @@ d3.dsv(',','PRECAVG.csv', function(d){
                         //over the year of interest, pops out more information included temp
                         //and DSI. Different colors can indicate DSI levels.
     var margin = {top: 20, right: 20, bottom: 20, left: 20},
-        width = 1300 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom,
+        width = 650 - margin.left - margin.right,
+        height = 650 - margin.top - margin.bottom,
         innerRadius= 80,
-        outerRadius = Math.min(width, height) / 2;
+        outerRadius = Math.min(width, height) / 1.5;
 
     var svg = d3.select("body")
+
         .append("svg")
+
+        .classed("svg", true)
+
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("height", height + margin.top + (margin.bottom + 50))
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + (height/2)+ ")");
+        .attr("transform", "translate(" + width / 2 + "," + (height/3 + 75)+ ")");
 
     var xscale = d3.scaleBand()
         .range([0, (2* Math.PI)])
@@ -29,6 +33,13 @@ d3.dsv(',','PRECAVG.csv', function(d){
     var yscale  =d3.scaleRadial()
         .domain([0, 15])
         .range([innerRadius, outerRadius]);
+
+    var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .html(d.temp);
 
     svg.append("g")
         .selectAll("path")
@@ -41,13 +52,12 @@ d3.dsv(',','PRECAVG.csv', function(d){
             .outerRadius(function(d){ return yscale(d['avg']); })
             .startAngle(function(d) { return xscale(d.year); })
             .endAngle(function(d) { return xscale(d.year) + xscale.bandwidth(); })
-                .padAngle(0.01)
-                .padRadius(innerRadius))
+            .padAngle(0.01)
+            .padRadius(innerRadius))
         .on('mouseover', function (d, i) {
             d3.select(this).transition()
                 .duration('50')
                 .attr('opacity', '.85')
-                // .attr("fill", "green")
                 .style("fill", function (d) {
                     if (parseInt(d.DSI) > -1.9) {
                         return "green";
@@ -59,14 +69,19 @@ d3.dsv(',','PRECAVG.csv', function(d){
                         return "red";
                     }
                 });
+
             //Make Tooltip Appear
-            div.style("visibility", "visible");
+            tooltip.style("visibility", "visible");
+
             //var eventX = d3.event.pageX;
             //var eventY = d3.event.pageY;
             div.html(d.value)
                 //div.text(d);
                 .style("left", (200+ 10) + "px")
                 .style("top", (200 - 15) + "px");
+        })
+        .on("mousemove", function () {
+            return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
         })
         .on('mouseout', function (d, i) {
             d3.select(this).transition()
@@ -75,6 +90,7 @@ d3.dsv(',','PRECAVG.csv', function(d){
                 .style("fill", function (d) {
                     return "#b5f28d";
                 });
+            tooltip.style("visibility", "hidden");
             div.transition()
                 .duration('50')
                 .style("opacity", 0);
@@ -92,4 +108,5 @@ d3.dsv(',','PRECAVG.csv', function(d){
         .attr("transform", function(d) { return (xscale(d.year) + xscale.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
         .style("font-size", "10px")
         .attr("alignment-baseline", "middle")
+
 });
