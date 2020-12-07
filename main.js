@@ -103,10 +103,9 @@ d3.dsv(',','PRECAVG.csv', function(d){
     svg.append("circle").attr("cx",70).attr("cy",395).attr("r", 6).style("fill", "#E08805")
     svg.append("circle").attr("cx", 70).attr("cy", 435).attr("r", 6).style("fill", "#DCA655")
     svg.append("circle").attr("cx", 70).attr("cy", 475).attr("r", 6).style("fill", "#F6CF95")
-    svg.append("circle").attr("cx", 220).attr("cy", 395).attr("r", 6).style("fill", "#1A604E")
-    svg.append("circle").attr("cx", 220).attr("cy", 350).attr("r", 6).style("fill", "#3FAE92")
-    svg.append("circle").attr("cx", 220).attr("cy", 435).attr("r", 6).style("fill", "#33F3C2")
-    svg.append("circle").attr("cx", 220).attr("cy", 435).attr("r", 6).style("fill", "#33F3C2")
+    svg.append("circle").attr("cx", 220).attr("cy", 395).attr("r", 6).style("fill", "#3FAE92")
+    svg.append("circle").attr("cx", 220).attr("cy", 350).attr("r", 6).style("fill", "#33F3C2")
+    svg.append("circle").attr("cx", 220).attr("cy", 435).attr("r", 6).style("fill", "#1A604E")
 
     //Key Labels
     svg.append("text").attr("x",80).attr("y", 350).text("Extreme Drought").style("font-size", "15px").attr("alignment-baseline","middle")
