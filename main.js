@@ -30,13 +30,17 @@ d3.dsv(',','PRECAVG.csv', function(d){
     var yscale  =d3.scaleRadial()
         .domain([0, 15])
         .range([innerRadius, outerRadius]);
-    // var tooltip = d3.select("body")
-    //     .append("div")
-    //     .style("position", "absolute")
-    //     .style("z-index", "10")
-    //     .style("visibility", "hidden")
+
+    var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .style("border", "3px solid")
+        .style("background", "white")
+        .style("padding", "10px 15px")
     //     .html(data.map(function(d){return d.DSI; }));
-    //
+
     svg.append("g")
         .selectAll("path")
         .data(data)
@@ -55,6 +59,9 @@ d3.dsv(',','PRECAVG.csv', function(d){
                 .duration('50')
                 .attr('opacity', '.85')
                 .style("fill", function (d) {
+                    tooltip
+                        .style("visibility", "visible")
+                        .html("<b>Year:</b> " + d.year + '<br>' +"<b>Avg Percipitation Rated:</b> " + d.avg + "<br>" + "<b>Average Temp:</b> "+ d.temp + "<br>" +"<b>DSI:</b> " + d.DSI)
                     if (parseInt(d.DSI) <= -4.00) {
                         return "#6B4205";
                     } else if (parseInt(d.DSI) <= -3.00 && parseInt(d.DSI) >= -3.99) {
@@ -73,7 +80,7 @@ d3.dsv(',','PRECAVG.csv', function(d){
                 });
 
             //Make Tooltip Appear
-            tooltip.style("visibility", "visible");
+            //tooltip.style("visibility", "visible");
 
             //var eventX = d3.event.pageX;
             //var eventY = d3.event.pageY;
